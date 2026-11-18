@@ -1,0 +1,17 @@
+name: Build Windows VST3 and Standalone
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -B build
+      - run: cmake --build build --config Release --target ScoobyGrooves2_VST3 ScoobyGrooves2_Standalone
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ScoobyGrooves2-VST3
+          path: build/ScoobyGrooves2_artefacts/Release/VST3/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ScoobyGrooves2-Standalone
+          path: build/ScoobyGrooves2_artefacts/Release/Standalone/
